@@ -1,0 +1,74 @@
+PODS:
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - FuckKit (1.0.0):
+    - FuckKit/Defaults (= 1.0.0)
+    - FuckKit/Foundation (= 1.0.0)
+    - FuckKit/GZIP (= 1.0.0)
+    - FuckKit/IDFA (= 1.0.0)
+    - FuckKit/JSBridge (= 1.0.0)
+    - FuckKit/Keychain (= 1.0.0)
+    - FuckKit/Macros (= 1.0.0)
+    - FuckKit/Reachability (= 1.0.0)
+    - FuckKit/SectionBlock (= 1.0.0)
+    - FuckKit/SectionData (= 1.0.0)
+    - FuckKit/SectionFunction (= 1.0.0)
+    - FuckKit/Security (= 1.0.0)
+    - FuckKit/Service (= 1.0.0)
+    - FuckKit/Timer (= 1.0.0)
+  - FuckKit/Defaults (1.0.0):
+    - FuckKit/Foundation
+    - FuckKit/Macros
+  - FuckKit/Foundation (1.0.0):
+    - FuckKit/Macros
+  - FuckKit/GZIP (1.0.0)
+  - FuckKit/IDFA (1.0.0):
+    - FuckKit/Foundation
+  - FuckKit/JSBridge (1.0.0):
+    - FuckKit/Foundation
+    - FuckKit/Macros
+  - FuckKit/Keychain (1.0.0)
+  - FuckKit/Macros (1.0.0)
+  - FuckKit/Reachability (1.0.0)
+  - FuckKit/SectionBlock (1.0.0):
+    - FuckKit/Macros
+  - FuckKit/SectionData (1.0.0):
+    - FuckKit/Macros
+  - FuckKit/SectionFunction (1.0.0):
+    - FuckKit/Macros
+  - FuckKit/Security (1.0.0)
+  - FuckKit/Service (1.0.0):
+    - FuckKit/Macros
+  - FuckKit/Timer (1.0.0):
+    - FuckKit/Macros
+  - OCMock (3.4.3)
+  - XcodeCoverage (1.4.2)
+
+DEPENDENCIES:
+  - FMDB (>= 2.7.0)
+  - FuckKit (from `../`)
+  - OCMock (~> 3.4.3)
+  - XcodeCoverage (= 1.4.2)
+
+SPEC REPOS:
+  "git@code.byted.org:iOS_Library/privatethird_source_repo.git":
+    - XcodeCoverage
+  "git@code.byted.org:iOS_Library/publicthird_source_repo.git":
+    - OCMock
+  trunk:
+    - FMDB
+
+EXTERNAL SOURCES:
+  FuckKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  FuckKit: fcb25dc0246eccdd52f472f973ae066fcd65cf56
+  OCMock: d3f8c898ac38bf00e7ae598361b1b67a3a83202a
+  XcodeCoverage: 7d78bc04e5f9e449503ce4a0cb01dee1151b2182
+
+PODFILE CHECKSUM: 0494aa7af19c739cf9ccbd92088bdb538e01233f
+
+COCOAPODS: 1.9.3
