@@ -24,8 +24,8 @@ xcuserdata/
 Pods/
 Pods
 *.txt
-!Podfile.lock
+Podfile.lock
 !Podfile
-!Gemfile.lock
+Gemfile.lock
 !Gemfile
 
