@@ -6,15 +6,11 @@ platform :ios, '10.0'
 inhibit_all_warnings!
 
 target 'RSKExample' do
-  pod 'OCMock','~> 3.4.3'
-  pod 'XcodeCoverage', '1.4.2'
   pod 'FMDB', '>= 2.7.0'
   pod 'FuckKit',:inhibit_warnings => false, :path => '../'
 end
 
 target 'RSKToday' do
-  pod 'OCMock','~> 3.4.3'
-  pod 'XcodeCoverage', '1.4.2'
   pod 'FMDB', '>= 2.7.0'
   pod 'FuckKit',:inhibit_warnings => false, :path => '../'
 end
