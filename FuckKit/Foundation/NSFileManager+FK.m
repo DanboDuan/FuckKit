@@ -56,4 +56,32 @@
     return [[NSBundle mainBundle] bundlePath];
 }
 
+- (NSURL *)fk_pathForNotificationFile:(NSString *)file group:(NSString *)group {
+    NSURL *containerURL = [self containerURLForSecurityApplicationGroupIdentifier:group];
+    if (containerURL == nil) {
+        return nil;
+    }
+    
+    NSURL *sdkPath = [containerURL URLByAppendingPathComponent:@"Library/Notification" isDirectory:YES];
+    BOOL isDir = NO;
+    BOOL needCreate = NO;
+    if ([self fileExistsAtPath:sdkPath.path isDirectory:&isDir]) {
+        if (!isDir) {
+            [self removeItemAtURL:sdkPath error:nil];
+            needCreate = YES;
+        }
+    } else {
+        needCreate = YES;
+    }
+    if (needCreate) {
+        [self createDirectoryAtURL:sdkPath withIntermediateDirectories:YES attributes:nil error:nil];
+        /// cost time
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [sdkPath setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
+        });
+    }
+    
+    return [sdkPath URLByAppendingPathComponent:file];
+}
+
 @end

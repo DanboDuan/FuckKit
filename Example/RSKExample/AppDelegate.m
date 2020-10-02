@@ -13,6 +13,9 @@
 #import <FuckKit/FKSectionBlock.h>
 #import <FuckKit/FKSectionFunction.h>
 
+#import <FuckKit/FKNotification.h>
+#import <FuckKit/NSFileManager+FK.h>
+
 FK_STRINGS_EXPORT("key1", "value1")
 FK_STRINGS_EXPORT("key1", "value2")
 FK_STRINGS_EXPORT("key2", "value1")
@@ -33,7 +36,19 @@ FK_FUNCTION_EXPORT("a")(void){
     printf("\na Function:test function 2");
 };
 
+void wormholeNotificationCallback(CFNotificationCenterRef center,
+                               void * observer,
+                               CFStringRef name,
+                               void const * object,
+                               CFDictionaryRef userInfo) {
+    NSString *identifier = (__bridge NSString *)name;
+    NSLog(@"%@",identifier);
+}
+
 @interface AppDelegate ()
+
+@property (nonatomic, assign) UIBackgroundTaskIdentifier bgTask;
+@property (strong, nonatomic) FKNotification *notification;
 
 @end
 
@@ -58,7 +73,44 @@ FK_FUNCTION_EXPORT("a")(void){
         [[FKSectionFunction sharedInstance] excuteFunctionsForKey:@"a"];
     });
     NSLog(@"%@, %@ %s",key1, key2,__func__);
+    CFNotificationCenterRef const center = CFNotificationCenterGetDarwinNotifyCenter();
+    NSString *identifier = @"test";
+    CFStringRef str = (__bridge CFStringRef)identifier;
+    CFNotificationCenterAddObserver(center,
+                                    (__bridge const void *)(self),
+                                    wormholeNotificationCallback,
+                                    str,
+                                    NULL,
+                                    CFNotificationSuspensionBehaviorDeliverImmediately);
+    
+    if (self.notification == nil) {
+        NSURL *path = [[NSFileManager defaultManager] fk_pathForNotificationFile:@"data.lock" group:@"group.bobcat.test"];
+        self.notification = [FKNotification sharedInstance];
+        [self.notification startWithLockFilePath:path];
+        [self.notification addObserverForName:@"Shared"
+                                    withBlock:^(NSDictionary * userInfo) {
+            NSLog(@"app receives notification from today: %@",userInfo);
+        }];
+    }
+    
     return YES;
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    if (self.bgTask == UIBackgroundTaskInvalid) {
+        self.bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
+            if (self.bgTask != UIBackgroundTaskInvalid) {
+                [application endBackgroundTask:self.bgTask];
+                self.bgTask = UIBackgroundTaskInvalid;
+            }
+        }];
+    }
+    
+    [self.notification postNotification:@"Shared"
+                               userInfo:@{@"from":@"app"}
+                             completion:^{
+        NSLog(@"app post notification to today");
+    }];
 }
 
 @end

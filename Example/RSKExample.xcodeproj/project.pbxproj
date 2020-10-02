@@ -8,17 +8,48 @@
 
 /* Begin PBXBuildFile section */
 		2653B27AC3AD9834121DAA5C /* libPods-RSKExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F8D3E80F936C029BF4838B /* libPods-RSKExample.a */; };
+		6DB72D6777F4F793A63C4945 /* libPods-RSKToday.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F288F43C21E76C10360ABD04 /* libPods-RSKToday.a */; };
 		C464E9232463D75600967C8E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C464E9222463D75600967C8E /* AppDelegate.m */; };
 		C464E9292463D75600967C8E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C464E9282463D75600967C8E /* ViewController.m */; };
 		C464E92C2463D75600967C8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C464E92A2463D75600967C8E /* Main.storyboard */; };
 		C464E92E2463D75900967C8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C464E92D2463D75900967C8E /* Assets.xcassets */; };
 		C464E9312463D75900967C8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C464E92F2463D75900967C8E /* LaunchScreen.storyboard */; };
 		C464E9342463D75900967C8E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C464E9332463D75900967C8E /* main.m */; };
+		C4B7274A25271DD700E41088 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B7274925271DD700E41088 /* NotificationCenter.framework */; };
+		C4B7274E25271DD700E41088 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B7274D25271DD700E41088 /* TodayViewController.m */; };
+		C4B7275125271DD700E41088 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B7274F25271DD700E41088 /* MainInterface.storyboard */; };
+		C4B7275525271DD700E41088 /* RSKToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C4B7274825271DD700E41088 /* RSKToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C4B7275325271DD700E41088 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C464E9162463D75500967C8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4B7274725271DD700E41088;
+			remoteInfo = RSKToday;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C4B7275925271DD700E41088 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C4B7275525271DD700E41088 /* RSKToday.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		231EA08926A2803279041976 /* Pods-RSKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSKExample.release.xcconfig"; path = "Target Support Files/Pods-RSKExample/Pods-RSKExample.release.xcconfig"; sourceTree = "<group>"; };
 		41F8D3E80F936C029BF4838B /* libPods-RSKExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RSKExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4200A61F32EB345E0F3A603E /* Pods-RSKToday.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSKToday.release.xcconfig"; path = "Target Support Files/Pods-RSKToday/Pods-RSKToday.release.xcconfig"; sourceTree = "<group>"; };
+		694D666E844EA89AF4AAFD37 /* Pods-RSKToday.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSKToday.debug.xcconfig"; path = "Target Support Files/Pods-RSKToday/Pods-RSKToday.debug.xcconfig"; sourceTree = "<group>"; };
 		C464E91E2463D75600967C8E /* RSKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C464E9212463D75600967C8E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C464E9222463D75600967C8E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -29,7 +60,16 @@
 		C464E9302463D75900967C8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C464E9322463D75900967C8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C464E9332463D75900967C8E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C4B7274325271D7700E41088 /* RSKExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RSKExample.entitlements; sourceTree = "<group>"; };
+		C4B7274825271DD700E41088 /* RSKToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RSKToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4B7274925271DD700E41088 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		C4B7274C25271DD700E41088 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		C4B7274D25271DD700E41088 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		C4B7275025271DD700E41088 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		C4B7275225271DD700E41088 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4B7275A25271DE000E41088 /* RSKToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RSKToday.entitlements; sourceTree = "<group>"; };
 		DF11CD4B88A8125437E11BD7 /* Pods-RSKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSKExample.debug.xcconfig"; path = "Target Support Files/Pods-RSKExample/Pods-RSKExample.debug.xcconfig"; sourceTree = "<group>"; };
+		F288F43C21E76C10360ABD04 /* libPods-RSKToday.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RSKToday.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +81,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4B7274525271DD700E41088 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4B7274A25271DD700E41088 /* NotificationCenter.framework in Frameworks */,
+				6DB72D6777F4F793A63C4945 /* libPods-RSKToday.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -49,6 +98,8 @@
 			children = (
 				DF11CD4B88A8125437E11BD7 /* Pods-RSKExample.debug.xcconfig */,
 				231EA08926A2803279041976 /* Pods-RSKExample.release.xcconfig */,
+				694D666E844EA89AF4AAFD37 /* Pods-RSKToday.debug.xcconfig */,
+				4200A61F32EB345E0F3A603E /* Pods-RSKToday.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -57,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				C464E9202463D75600967C8E /* RSKExample */,
+				C4B7274B25271DD700E41088 /* RSKToday */,
 				C464E91F2463D75600967C8E /* Products */,
 				B7786229B1CE8ADDBB4A9ADF /* Pods */,
 				CFFA8A7CD8A7C13ED8650B5B /* Frameworks */,
@@ -67,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				C464E91E2463D75600967C8E /* RSKExample.app */,
+				C4B7274825271DD700E41088 /* RSKToday.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -74,6 +127,7 @@
 		C464E9202463D75600967C8E /* RSKExample */ = {
 			isa = PBXGroup;
 			children = (
+				C4B7274325271D7700E41088 /* RSKExample.entitlements */,
 				C464E9212463D75600967C8E /* AppDelegate.h */,
 				C464E9222463D75600967C8E /* AppDelegate.m */,
 				C464E9272463D75600967C8E /* ViewController.h */,
@@ -87,10 +141,24 @@
 			path = RSKExample;
 			sourceTree = "<group>";
 		};
+		C4B7274B25271DD700E41088 /* RSKToday */ = {
+			isa = PBXGroup;
+			children = (
+				C4B7275A25271DE000E41088 /* RSKToday.entitlements */,
+				C4B7274C25271DD700E41088 /* TodayViewController.h */,
+				C4B7274D25271DD700E41088 /* TodayViewController.m */,
+				C4B7274F25271DD700E41088 /* MainInterface.storyboard */,
+				C4B7275225271DD700E41088 /* Info.plist */,
+			);
+			path = RSKToday;
+			sourceTree = "<group>";
+		};
 		CFFA8A7CD8A7C13ED8650B5B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				41F8D3E80F936C029BF4838B /* libPods-RSKExample.a */,
+				C4B7274925271DD700E41088 /* NotificationCenter.framework */,
+				F288F43C21E76C10360ABD04 /* libPods-RSKToday.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -106,15 +174,35 @@
 				C464E91A2463D75600967C8E /* Sources */,
 				C464E91B2463D75600967C8E /* Frameworks */,
 				C464E91C2463D75600967C8E /* Resources */,
+				C4B7275925271DD700E41088 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C4B7275425271DD700E41088 /* PBXTargetDependency */,
 			);
 			name = RSKExample;
 			productName = RSKExample;
 			productReference = C464E91E2463D75600967C8E /* RSKExample.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C4B7274725271DD700E41088 /* RSKToday */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4B7275625271DD700E41088 /* Build configuration list for PBXNativeTarget "RSKToday" */;
+			buildPhases = (
+				8F026CD8B37C55D0E8AAC853 /* [CP] Check Pods Manifest.lock */,
+				C4B7274425271DD700E41088 /* Sources */,
+				C4B7274525271DD700E41088 /* Frameworks */,
+				C4B7274625271DD700E41088 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RSKToday;
+			productName = RSKToday;
+			productReference = C4B7274825271DD700E41088 /* RSKToday.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -127,6 +215,9 @@
 				TargetAttributes = {
 					C464E91D2463D75600967C8E = {
 						CreatedOnToolsVersion = 11.3;
+					};
+					C4B7274725271DD700E41088 = {
+						CreatedOnToolsVersion = 11.7;
 					};
 				};
 			};
@@ -144,6 +235,7 @@
 			projectRoot = "";
 			targets = (
 				C464E91D2463D75600967C8E /* RSKExample */,
+				C4B7274725271DD700E41088 /* RSKToday */,
 			);
 		};
 /* End PBXProject section */
@@ -156,6 +248,14 @@
 				C464E9312463D75900967C8E /* LaunchScreen.storyboard in Resources */,
 				C464E92E2463D75900967C8E /* Assets.xcassets in Resources */,
 				C464E92C2463D75600967C8E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4B7274625271DD700E41088 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4B7275125271DD700E41088 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +284,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8F026CD8B37C55D0E8AAC853 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RSKToday-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -197,7 +319,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4B7274425271DD700E41088 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4B7274E25271DD700E41088 /* TodayViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C4B7275425271DD700E41088 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4B7274725271DD700E41088 /* RSKToday */;
+			targetProxy = C4B7275325271DD700E41088 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C464E92A2463D75600967C8E /* Main.storyboard */ = {
@@ -214,6 +352,14 @@
 				C464E9302463D75900967C8E /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C4B7274F25271DD700E41088 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C4B7275025271DD700E41088 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -337,6 +483,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
+				CODE_SIGN_ENTITLEMENTS = RSKExample/RSKExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UA524KP7L9;
 				ENABLE_BITCODE = NO;
@@ -360,6 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_CODE_COVERAGE = NO;
+				CODE_SIGN_ENTITLEMENTS = RSKExample/RSKExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_BITCODE = NO;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
@@ -372,6 +520,47 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rangers.RSKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C4B7275725271DD700E41088 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 694D666E844EA89AF4AAFD37 /* Pods-RSKToday.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RSKToday/RSKToday.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UA524KP7L9;
+				INFOPLIST_FILE = RSKToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rangers.RSKExample.RSKToday;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C4B7275825271DD700E41088 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4200A61F32EB345E0F3A603E /* Pods-RSKToday.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RSKToday/RSKToday.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = RSKToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rangers.RSKExample.RSKToday;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -393,6 +582,15 @@
 			buildConfigurations = (
 				C464E9382463D75900967C8E /* Debug */,
 				C464E9392463D75900967C8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4B7275625271DD700E41088 /* Build configuration list for PBXNativeTarget "RSKToday" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4B7275725271DD700E41088 /* Debug */,
+				C4B7275825271DD700E41088 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

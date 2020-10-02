@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// /private/var/containers/Bundle/Application/XXX/YYY.app
 + (NSString *)fk_mainBundlePath;
 
+- (nullable NSURL *)fk_pathForNotificationFile:(NSString *)file group:(NSString *)group;
+
 @end
 
 NS_ASSUME_NONNULL_END

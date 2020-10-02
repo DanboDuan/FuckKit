@@ -21,17 +21,6 @@
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
-      <PreActions>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "[BD-build-infer]"
-               scriptText = "export BD_GIT=&quot;git@code.byted.org:iOS_Library/RangersKit.git&quot; &amp;&amp; curl https://ios.bytedance.net/wlapi/tosDownload/iosbinary/indexstore/pre_build_hook.sh | bash &gt; /tmp/bd_pre_build_hook.log 2&gt;&amp;1 &amp; ">
-            </ActionContent>
-         </ExecutionAction>
-      </PreActions>
-      <PostActions>
-      </PostActions>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"

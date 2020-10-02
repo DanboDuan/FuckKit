@@ -12,6 +12,13 @@ target 'RSKExample' do
   pod 'FuckKit',:inhibit_warnings => false, :path => '../'
 end
 
+target 'RSKToday' do
+  pod 'OCMock','~> 3.4.3'
+  pod 'XcodeCoverage', '1.4.2'
+  pod 'FMDB', '>= 2.7.0'
+  pod 'FuckKit',:inhibit_warnings => false, :path => '../'
+end
+
 def update_deployment_config(config = nil)
   return if config.nil?
   config.build_settings['ENABLE_BITCODE'] = 'NO'

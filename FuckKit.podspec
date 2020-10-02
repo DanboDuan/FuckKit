@@ -113,5 +113,11 @@ Pod::Spec.new do |s|
     d.public_header_files = 'FuckKit/SectionFunction/**/*.h'
   end
   
+  s.subspec 'Notification' do |d|
+    d.dependency 'FuckKit/Macros'
+    d.dependency 'FuckKit/Foundation'
+    d.source_files = 'FuckKit/Notification/**/*.{h,m,c}'
+    d.public_header_files = 'FuckKit/Notification/**/*.h'
+  end
   
 end
