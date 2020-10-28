@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (FKCellularConnectionType)cellularConnectionType;
 + (BOOL)is3GConnected;
 + (BOOL)is4GConnected;
++ (BOOL)is5GConnected;
 + (nullable NSString*)carrierName;
 + (nullable NSString*)carrierMCC;
 + (nullable NSString*)carrierMNC;
@@ -26,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (FKCellularConnectionType)cellularConnectionTypeForService:(FKCellularServiceType)service;
 + (BOOL)is3GConnectedForService:(FKCellularServiceType)service;
 + (BOOL)is4GConnectedForService:(FKCellularServiceType)service;
++ (BOOL)is5GConnectedForService:(FKCellularServiceType)service;
 + (NSString *)carrierNameForService:(FKCellularServiceType)service;
 + (NSString *)carrierMCCForService:(FKCellularServiceType)service;
 + (NSString *)carrierMNCForService:(FKCellularServiceType)service;

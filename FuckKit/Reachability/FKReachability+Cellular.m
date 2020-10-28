@@ -34,6 +34,11 @@
     return [self is4GConnectedForService:service];
 }
 
++ (BOOL)is5GConnected {
+    FKCellularServiceType service = [[FKCellular sharedInstance] currentDataServiceType];
+    return [self is5GConnectedForService:service];
+}
+
 + (NSString *)carrierName {
     FKCellularServiceType service = [[FKCellular sharedInstance] currentDataServiceType];
 
@@ -67,6 +72,12 @@
     FKCellularConnectionType connectionType = [[FKCellular sharedInstance] cellularConnectionTypeForService:service];
     
     return connectionType == FKCellularConnectionType4G;
+}
+
++ (BOOL)is5GConnectedForService:(FKCellularServiceType)service {
+    FKCellularConnectionType connectionType = [[FKCellular sharedInstance] cellularConnectionTypeForService:service];
+    
+    return connectionType == FKCellularConnectionType5G;
 }
 
 + (NSString *)carrierNameForService:(FKCellularServiceType)service {

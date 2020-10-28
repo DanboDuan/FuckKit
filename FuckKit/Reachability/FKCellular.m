@@ -12,6 +12,15 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTCellularData.h>
 
+#if __IPHONE_14_1 || __TVOS_14_1 || __MAC_11_1
+// Xcode 12.1+
+#else
+// Xcode 12.0-
+#define CTRadioAccessTechnologyNR @"CTRadioAccessTechnologyNR"
+#define CTRadioAccessTechnologyNRNSA @"CTRadioAccessTechnologyNRNSA"
+#endif
+
+
 #ifndef FK_Lock
 #define FK_Lock(lock) dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
 #endif
@@ -22,6 +31,13 @@
 
 static FKCellularConnectionType ParseRadioAccessTechnology(NSString * tech) {
     if (tech.length < 1) return FKCellularConnectionTypeNone;
+    
+    if (@available(iOS 14.0, *)) {
+        if ([tech isEqualToString:CTRadioAccessTechnologyNR]
+            ||[tech isEqualToString:CTRadioAccessTechnologyNRNSA]) {
+            return FKCellularConnectionType5G;
+        }
+    }
     
     if ([tech isEqualToString:CTRadioAccessTechnologyLTE]) {
         return FKCellularConnectionType4G;

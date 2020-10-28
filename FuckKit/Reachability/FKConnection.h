@@ -24,7 +24,9 @@ typedef NS_ENUM(NSInteger, FKNetworkConnectionType) {
     /// wifi网络连接
     FKNetworkConnectionTypeWiFi = 4,
     /// 4G网络连接
-    FKNetworkConnectionType4G = 5
+    FKNetworkConnectionType4G = 5,
+    /// 5G网络连接
+    FKNetworkConnectionType5G = 6,
 };
 
 @interface FKConnection : NSObject

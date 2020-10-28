@@ -22,7 +22,9 @@ typedef NS_ENUM(NSInteger, FKCellularConnectionType) {
     /// 3G网络连接
     FKCellularConnectionType3G,
     /// 4G网络连接
-    FKCellularConnectionType4G
+    FKCellularConnectionType4G,
+    /// 5G网络连接
+    FKCellularConnectionType5G,
 };
 
 typedef NS_ENUM(NSInteger, FKCellularServiceType) {

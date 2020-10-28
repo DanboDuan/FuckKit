@@ -15,6 +15,7 @@
 
 #import <FuckKit/FKNotification.h>
 #import <FuckKit/NSFileManager+FK.h>
+#import <FuckKit/FKReachability+Cellular.h>
 
 FK_STRINGS_EXPORT("key1", "value1")
 FK_STRINGS_EXPORT("key1", "value2")
@@ -93,6 +94,7 @@ void wormholeNotificationCallback(CFNotificationCenterRef center,
         }];
     }
     
+    [FKReachability is5GConnected];
     return YES;
 }
 

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'FuckKit'
-  s.version          = '1.0.0'
+  s.version          = '1.1.0'
   s.summary          = 'Rangers Kit.'
   s.description      = 'Rangers Kit.'
   s.homepage         = 'https://github.com/DanboDuan'

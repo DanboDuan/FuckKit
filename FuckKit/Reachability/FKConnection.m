@@ -50,6 +50,8 @@
     FKCellularConnectionType connectionType = [[FKCellular sharedInstance] cellularConnectionTypeForService:serviceType];
     
     switch (connectionType) {
+        case FKCellularConnectionType5G:
+            return FKNetworkConnectionType5G;
         case FKCellularConnectionType4G:
             return FKNetworkConnectionType4G;
         case FKCellularConnectionType3G:
