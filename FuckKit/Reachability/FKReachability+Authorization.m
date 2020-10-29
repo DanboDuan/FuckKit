@@ -85,11 +85,15 @@ typedef NS_OPTIONS(NSInteger, FKActiveIfAddrsStatus) {
     ///    如果系统有 WiFi 连接，则判断为 未开启无线局域网与蜂窝移动网络权限
     ///    如果系统有 WWAN 连接，则判断为 未开启蜂窝移动网络权限
     ///    判断顺序为先 WiFi 后 WWAN，不能反，否则会在国行 iPhone 上造成误判，将 “全部未开” 误判成 “未开蜂窝”
-    
-    CTCellularDataRestrictedState cellState = [FKCellular cellularData].restrictedState;
-    
-    if (cellState == kCTCellularDataRestricted
-        && (activeIfAddrs & FKActiveIfAddrsStatusNone) == 0) {
+    BOOL dataRestricted;
+    if (@available(iOS 9.0, *)) {
+        CTCellularDataRestrictedState cellState = [[CTCellularData alloc] init].restrictedState; /// 蜂窝授权状态
+        dataRestricted = (cellState == kCTCellularDataRestricted);
+    } else {
+        dataRestricted = YES; /// iOS 9以下假设永远受限，走复杂判定逻辑
+    }
+    if (dataRestricted && (activeIfAddrs & FKActiveIfAddrsStatusNone) == 0) {
+        /// 蜂窝未授权，且手机实际已联网
         /// 由于发现苹果WiFi状态变化有时候会滞后，这里加一个额外的判定逻辑
         /// 如果经过一次App活跃状态切换，并且上一次“可用的检测”还没别覆盖，直接返回NotDetermined
         if ([FKReachability sharedInstance].telephoneInfoIndeterminateStatus) {
