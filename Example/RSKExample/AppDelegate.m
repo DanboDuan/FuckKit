@@ -16,6 +16,7 @@
 #import <FuckKit/FKNotification.h>
 #import <FuckKit/NSFileManager+FK.h>
 #import <FuckKit/FKReachability+Cellular.h>
+#import <FuckKit/FKUtility.h>
 
 FK_STRINGS_EXPORT("key1", "value1")
 FK_STRINGS_EXPORT("key1", "value2")

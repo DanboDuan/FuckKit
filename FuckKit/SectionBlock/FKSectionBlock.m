@@ -50,7 +50,7 @@ static void dyld_block_callback(const struct mach_header *mhp, intptr_t vmaddr_s
     FKReadBlocks("__FKBlock",mhp);
 }
 
-__attribute__((constructor)) void fkBlockProphet() {
+__attribute__((constructor)) void fkBlockProphet(void) {
     _dyld_register_func_for_add_image(dyld_block_callback);
 }
 

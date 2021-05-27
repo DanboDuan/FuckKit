@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
     :git => 'git@github.com:DanboDuan/FuckKit.git',
     :tag => s.version.to_s
   }
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
   s.requires_arc = true
   s.static_framework = true
   s.pod_target_xcconfig = {

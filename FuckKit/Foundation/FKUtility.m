@@ -6,6 +6,8 @@
 //
 
 #import "FKUtility.h"
+#import <sys/sysctl.h>
+#import <mach/mach_time.h>
 
 @implementation FKUtility
 
@@ -31,3 +33,25 @@
 }
 
 @end
+
+uint64_t FKCurrentMachTime(void) {
+    return mach_absolute_time();
+}
+
+/// the same as CACurrentMediaTime()
+double FKMachTimeToSecs(uint64_t time) {
+    mach_timebase_info_data_t timebase;
+    mach_timebase_info(&timebase);
+    return (double)time * (double)timebase.numer /
+    (double)timebase.denom / NSEC_PER_SEC;
+}
+
+long long FKTimeMillisecond(void) {
+    struct timespec now;
+    if (clock_gettime(CLOCK_REALTIME, &now)) {
+        return -1;
+    }
+    
+    long long micros = now.tv_sec * 1000 + now.tv_nsec/NSEC_PER_MSEC;
+    return micros;
+}

@@ -72,7 +72,7 @@ static void dyld_function_callback(const struct mach_header *mhp, intptr_t vmadd
     FKReadFunctions("__FKFunction", mhp);
 }
 
-__attribute__((constructor)) void fkFunctionProphet() {
+__attribute__((constructor)) void fkFunctionProphet(void) {
     _dyld_register_func_for_add_image(dyld_function_callback);
 }
 
