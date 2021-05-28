@@ -10,6 +10,12 @@ target 'RSKExample' do
   pod 'FuckKit',:inhibit_warnings => false, :path => '../'
 end
 
+target 'SwiftExample' do
+  pod 'FMDB', '>= 2.7.0'
+  pod 'FuckKit',:inhibit_warnings => false, :path => '../'
+  pod 'SwiftFuckKit',:inhibit_warnings => false, :path => '../'
+end
+
 target 'RSKToday' do
   pod 'FMDB', '>= 2.7.0'
   pod 'FuckKit',:inhibit_warnings => false, :path => '../'
@@ -21,6 +27,8 @@ def update_deployment_config(config = nil)
   if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 9.0
     config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
   end
+  config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = '$(inherited)'
+#  config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = '$(inherited)'
 end
 
 post_install do |installer|

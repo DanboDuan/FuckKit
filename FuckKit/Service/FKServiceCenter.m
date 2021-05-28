@@ -20,8 +20,8 @@
 
 + (instancetype)sharedInstance {
     static FKServiceCenter *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    static dispatch_once_t onceTFKen;
+    dispatch_once(&onceTFKen, ^{
         sharedInstance = [self new];
     });
 
@@ -115,3 +115,56 @@
 }
 
 @end
+
+
+#ifdef __FILE_NAME__
+#define __FKALOG_FILE_NAME__ __FILE_NAME__
+#else
+#define __FKALOG_FILE_NAME__ __FILE__
+#endif
+
+#define NSSTRING_LOG(tag, format, ...) ( [NSString stringWithFormat:@"[%@][%@:%d] %@", tag, [[NSString stringWithUTF8String:__FKALOG_FILE_NAME__] lastPathComponent], __LINE__, [NSString stringWithFormat:format, ##__VA_ARGS__, nil]])
+
+
+#define FKLOG_PROTOCOL_VERBOSE_TAG(tag, format, ...)\
+@autoreleasepool {do{[FK_CENTER_OBJECT(FKLogService) verbose:NSSTRING_LOG(tag, format, ##__VA_ARGS__)];\
+}while(0);};
+
+#define FKLOG_PROTOCOL_DEBUG_TAG(tag, format, ...)\
+@autoreleasepool {do{[FK_CENTER_OBJECT(FKLogService) debug:NSSTRING_LOG(tag, format, ##__VA_ARGS__)];\
+}while(0);};
+
+#define FKLOG_PROTOCOL_INFO_TAG(tag, format, ...)\
+@autoreleasepool {do{[FK_CENTER_OBJECT(FKLogService) info:NSSTRING_LOG(tag, format, ##__VA_ARGS__)];\
+}while(0);};
+
+#define FKLOG_PROTOCOL_WARN_TAG(tag, format, ...)\
+@autoreleasepool {do{[FK_CENTER_OBJECT(FKLogService) warn:NSSTRING_LOG(tag, format, ##__VA_ARGS__)];\
+}while(0);};
+
+#define FKLOG_PROTOCOL_ERROR_TAG(tag, format, ...)\
+@autoreleasepool {do{[FK_CENTER_OBJECT(FKLogService) error:NSSTRING_LOG(tag, format, ##__VA_ARGS__)];\
+}while(0);};
+
+/// @BindService(LoginService)
+/// @BindService(AccountService)
+#define FKBindService(protocolName) class NSObject; \
++ (id<protocolName>)__bind_service_##protocolName { \
+    [[FKServiceCenter sharedInstance] bindClass:self forProtocol:@protocol(protocolName)]; \
+    return nil; \
+}
+
+/// @InjectService(loginService, TTLoginService)
+/// @InjectService(accountService, TTAccountService)
+#define FKInjectService(name, protocolName) class NSObject; \
+- (id<protocolName>)name { \
+    id service = objc_getAssociatedObject(self, _cmd); \
+    if (!service) { \
+        service = [[FKServiceCenter sharedInstance] serviceForProtocol:@protocol(protocolName)]; \
+        objc_setAssociatedObject(self, _cmd, service, OBJC_ASSOCIATION_RETAIN_NONATOMIC); \
+    } \
+    return service; \
+}
+
+
+

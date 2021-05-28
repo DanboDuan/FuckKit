@@ -37,7 +37,7 @@ FK_FUNCTION_EXPORT("a")(void){
 
 2.call function, should not be in the first runloop
 dispatch_async(dispatch_get_main_queue(), ^{
- [[FKSectionFunction sharedInstance] excuteFunctionsForKey:@"a"];
+ [[FKSectionFunction sharedInstance] executeFunctionsForKey:@"a"];
 });
 */
 
@@ -45,7 +45,9 @@ dispatch_async(dispatch_get_main_queue(), ^{
 
 + (instancetype)sharedInstance;
 
-- (void)excuteFunctionsForKey:(NSString *)key;
+- (void)executeFunctionsForKey:(NSString *)key;
+/// empty method for swift
+- (void)executeSwiftFunctionsForKey:(NSString *)key;
 
 @end
 

@@ -71,8 +71,8 @@ void wormholeNotificationCallback(CFNotificationCenterRef center,
     NSArray *key1 = [FKSectionData exportedStringsForKey:@"key1"];
     NSArray *key2 = [FKSectionData exportedStringsForKey:@"key2"];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[FKSectionBlock sharedInstance] excuteBlocksForKey:@"a"];
-        [[FKSectionFunction sharedInstance] excuteFunctionsForKey:@"a"];
+        [[FKSectionBlock sharedInstance] executeBlocksForKey:@"a"];
+        [[FKSectionFunction sharedInstance] executeFunctionsForKey:@"a"];
     });
     NSLog(@"%@, %@ %s",key1, key2,__func__);
     CFNotificationCenterRef const center = CFNotificationCenterGetDarwinNotifyCenter();

@@ -15,4 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol FKLogService <FKService>
+
+- (void)verbose:(NSString *)log;
+- (void)debug:(NSString *)log;
+- (void)info:(NSString *)log;
+- (void)warn:(NSString *)log;
+- (void)error:(NSString *)log;
+
+@end
+
 NS_ASSUME_NONNULL_END

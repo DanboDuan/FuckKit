@@ -35,12 +35,44 @@
 
 @end
 
+typedef struct _FKFunctionNode {
+    FKFunction* dataArray;
+    unsigned long size;
+    struct _FKFunctionNode *next;
+    struct _FKFunctionNode *head;
+} FKFunctionNode;
+
+static FKFunctionNode *_NODE;
+
 @interface FKSectionFunction ()
 
 @property (atomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *keyFunctions;
 - (void)addFunction:(const void *)pointer forKey:(NSString *)key;
 
 @end
+
+static void FKParseNode() {
+    if (_NODE == NULL) {
+        return;
+    }
+    FKFunctionNode *head = _NODE->head;
+    FKFunctionNode *node = head;
+    while (node != NULL) {
+        FKFunction *dataArray = node->dataArray;
+        unsigned long counter = node->size;
+        for(int idx = 0; idx < counter; ++idx) {
+            FKFunction data = dataArray[idx];
+            NSString *key = [NSString stringWithUTF8String:data.key];
+            const void * function = data.function;
+            [[FKSectionFunction sharedInstance] addFunction:function forKey:key];
+        }
+        FKFunctionNode *temp = node;
+        node = node->next;
+        free(temp);
+    }
+    _NODE = NULL;
+}
+
 
 static void FKReadFunctions(char *sectionName, const struct mach_header *mhp) {
     unsigned long size = 0;
@@ -53,13 +85,22 @@ static void FKReadFunctions(char *sectionName, const struct mach_header *mhp) {
     FKFunction *dataArray = (FKFunction *)memory;
     unsigned long counter = size/sizeof(FKFunction);
     /// next runloop for oc method
+    FKFunctionNode *node = (FKFunctionNode*)malloc(sizeof(FKFunctionNode));
+    node->dataArray = dataArray;
+    node->size = counter;
+    node->next = NULL;
+    node->head = NULL;
+    if (_NODE != NULL) {
+        node->head = _NODE->head;
+        _NODE->next = node;
+    } else {
+        node->head = node;
+    }
+    _NODE = node;
+    
+    /// next runloop for oc method
     dispatch_async(dispatch_get_main_queue(), ^{
-        for(int idx = 0; idx < counter; ++idx) {
-            FKFunction data = dataArray[idx];
-            NSString *key = [NSString stringWithUTF8String:data.key];
-            const void * function = data.function;
-            [[FKSectionFunction sharedInstance] addFunction:function forKey:key];
-        }
+        FKParseNode();
     });
 }
 
@@ -72,12 +113,12 @@ static void dyld_function_callback(const struct mach_header *mhp, intptr_t vmadd
     FKReadFunctions("__FKFunction", mhp);
 }
 
-__attribute__((constructor)) void fkFunctionProphet(void) {
-    _dyld_register_func_for_add_image(dyld_function_callback);
-}
-
-
 @implementation FKSectionFunction
+
++ (void)initialize {
+    _dyld_register_func_for_add_image(dyld_function_callback);
+    FKParseNode();
+}
 
 + (instancetype)sharedInstance {
     static FKSectionFunction *sharedInstance;
@@ -111,19 +152,23 @@ __attribute__((constructor)) void fkFunctionProphet(void) {
     [functions addObject:[[_FKFunctionData alloc] initWithPointer:pointer]];
 }
 
-- (void)excuteFunctionsForKey:(NSString *)key {
+- (void)executeFunctionsForKey:(NSString *)key {
     if (key == nil) {
         return;
     }
     
     NSArray<_FKFunctionData *> *functions = [self.keyFunctions objectForKey:key].copy;
-    if (functions == nil) {
-        return;
+    if (functions != nil) {
+        [functions enumerateObjectsUsingBlock:^(_FKFunctionData *function, NSUInteger idx, BOOL * stop) {
+            [function start];
+        }];
     }
-    [functions enumerateObjectsUsingBlock:^(_FKFunctionData *function, NSUInteger idx, BOOL * stop) {
-        [function start];
-    }];
+    
+    [self executeSwiftFunctionsForKey:key];
 }
 
+- (void)executeSwiftFunctionsForKey:(NSString *)key {
+    
+}
 
 @end

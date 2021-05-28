@@ -30,14 +30,14 @@ static const FKBlock FKBlockUniqueIdentifier = (FKBlock){key, block};
  
  2.call blocks, should not be in the first runloop
  dispatch_async(dispatch_get_main_queue(), ^{
-     [[FKSectionBlock sharedInstance] excuteBlocksForKey:@"a"];
+     [[FKSectionBlock sharedInstance] executeBlocksForKey:@"a"];
  });
  */
 @interface FKSectionBlock : NSObject
 
 + (instancetype)sharedInstance;
 
-- (void)excuteBlocksForKey:(NSString *)key;
+- (void)executeBlocksForKey:(NSString *)key;
 
 @end
 

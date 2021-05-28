@@ -88,7 +88,7 @@ __attribute__((constructor)) void fkBlockProphet(void) {
     [blocks addObject:block];
 }
 
-- (void)excuteBlocksForKey:(NSString *)key {
+- (void)executeBlocksForKey:(NSString *)key {
     if (key == nil) {
         return;
     }

@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #define FK_CENTER_OBJECT(theProtocol) \
-    [[FKServiceCenter sharedInstance] objectForProtocol:@protocol(theProtocol)]
+    [[FKServiceCenter sharedInstance] serviceForProtocol:@protocol(theProtocol)]
 
 #define FK_CENTER_BIND_CLASS_PROTOCOL(theClass, theProtocol) \
     [[FKServiceCenter sharedInstance] bindClass:theClass forProtocol:@protocol(theProtocol)]
