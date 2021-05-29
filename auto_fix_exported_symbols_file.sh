@@ -11,7 +11,7 @@ fi
 arch=($(echo $VALID_ARCHS | awk 'BEGIN{FS=" ";OFS=" "} {print $1}'))
 swift_include_paths_trim_quota=($(echo $SWIFT_INCLUDE_PATHS | sed 's/\"//g'))
 swift_pods=()
-# Get all gaia symbol.
+# Get all swift_function symbol.
 symbols=()
 for swift_module_path in ${swift_include_paths_trim_quota[@]};
 do
@@ -20,8 +20,8 @@ do
     echo $swift_module_path
     swift_interface_path="$swift_module_path/$pod_name.swiftmodule/$arch.swiftinterface"
     echo $swift_interface_path
-    gaia_symbols_str=`cat $swift_interface_path | pcregrep -o "(?<=@_silgen_name\(\").*?(?=\"\))"`
-    for str in ${gaia_symbols_str[@]};
+    swift_function_symbols_str=`cat $swift_interface_path | pcregrep -o "(?<=@_silgen_name\(\").*?(?=\"\))"`
+    for str in ${swift_function_symbols_str[@]};
     do
         symbols[${#symbols[@]}]="_$str"
     done
@@ -46,7 +46,7 @@ if [ -f $EXPORTED_SYMBOLS_FILE ]; then
     done < $EXPORTED_SYMBOLS_FILE
 fi
 
-# Add gaia symbols into exported symbol file.
+# Add swift_function symbols into exported symbol file.
 for var in ${unique_symbols[@]}
 do
     if [[ "${exported_symbols[@]}" =~ "$var" ]]; then
