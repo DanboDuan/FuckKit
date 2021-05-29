@@ -8,6 +8,7 @@ inhibit_all_warnings!
 target 'RSKExample' do
   pod 'FMDB', '>= 2.7.0'
   pod 'FuckKit',:inhibit_warnings => false, :path => '../'
+  pod 'SwiftFuckKit',:inhibit_warnings => false, :path => '../'
 end
 
 target 'SwiftExample' do

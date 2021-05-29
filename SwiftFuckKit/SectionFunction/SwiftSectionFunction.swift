@@ -1,6 +1,6 @@
 //
-//  SwiftSectionFunction.swift
-//  SwiftSectionFunction
+//  FKSwiftSectionFunction.swift
+//  FKSwiftSectionFunction
 //
 //  Created by xxx
 //
@@ -9,7 +9,7 @@ import MachO
 import Foundation
 @_implementationOnly import FuckKit
 
-public class SwiftSectionFunction {
+public class FKSwiftSectionFunction {
     lazy var exportedSymbols = [String : UnsafeMutableRawPointer?]()
     lazy var organizedSymbols = [String : [UnsafeMutableRawPointer?]]()
     var namespace : String
@@ -25,7 +25,7 @@ public class SwiftSectionFunction {
         self.namespace = privately
     }
     
-    static let `default` = SwiftSectionFunction(namespace: "FuckKit")
+    static let `default` = FKSwiftSectionFunction(namespace: "FuckKit")
     
     lazy var fullNamespace = "_" + namespace + "."
     
@@ -38,10 +38,10 @@ public class SwiftSectionFunction {
             if (!String(cString: info.dli_fname).hasPrefix(Bundle.main.bundlePath)) {
                 return
             }
-            let exportedSymbols = SwiftSectionFunction.default.getExportedSymbols(image: image, slide: slide)
+            let exportedSymbols = FKSwiftSectionFunction.default.getExportedSymbols(image: image, slide: slide)
             exportedSymbols.forEach { (key, symbol) in
-                SwiftSectionFunction.workQueue.sync {
-                    SwiftSectionFunction.default.addSymbol(key: key, symbol: symbol)
+                FKSwiftSectionFunction.workQueue.sync {
+                    FKSwiftSectionFunction.default.addSymbol(key: key, symbol: symbol)
                 }
             }
         }
@@ -51,7 +51,7 @@ public class SwiftSectionFunction {
         for i in 0..<_dyld_image_count() {
             let exportedSymbols = getExportedSymbols(image: _dyld_get_image_header(i), slide: _dyld_get_image_vmaddr_slide(i))
             exportedSymbols.forEach { (key, symbol) in
-                SwiftSectionFunction.workQueue.sync {
+                FKSwiftSectionFunction.workQueue.sync {
                     addSymbol(key: key, symbol: symbol)
                 }
             }
@@ -62,8 +62,6 @@ public class SwiftSectionFunction {
         self.exportedSymbols[key] = symbol
     }
     
-    
-    /// http://www.itkeyword.com/doc/143214251714949x965/uleb128p1-sleb128-uleb128
     static func readUleb128(p: inout UnsafeMutablePointer<UInt8>, end: UnsafeMutablePointer<UInt8>) -> UInt64 {
         var result: UInt64 = 0
         var bit = 0
@@ -93,14 +91,13 @@ public class SwiftSectionFunction {
 
     
     public class func start(key: String) {
-//        _ = setup
-        SwiftSectionFunction.default.start(key: key)
+        FKSwiftSectionFunction.default.start(key: key)
     }
     
     public func start(key: String) {
         typealias classFunc = @convention(thin) () -> Void
         var keySymbols : [UnsafeMutableRawPointer?] = []
-        SwiftSectionFunction.workQueue.sync {
+        FKSwiftSectionFunction.workQueue.sync {
             guard let organizedKeySymbols = organizedSymbols[key] else {
                 exportedSymbols.forEach { (fullKey, symbol) in
                     if fullKey.hasPrefix(fullNamespace + key + ".") || fullKey == fullNamespace + key {
@@ -129,16 +126,16 @@ public class SwiftSectionFunction {
         for _ in 0..<image.pointee.ncmds {
             if curCmd.pointee.cmd == LC_SEGMENT_64 {
                 
-                if  curCmd.pointee.segname.0 == SwiftSectionFunction.linkeditName[0] &&
-                        curCmd.pointee.segname.1 == SwiftSectionFunction.linkeditName[1] &&
-                        curCmd.pointee.segname.2 == SwiftSectionFunction.linkeditName[2] &&
-                        curCmd.pointee.segname.3 == SwiftSectionFunction.linkeditName[3] &&
-                        curCmd.pointee.segname.4 == SwiftSectionFunction.linkeditName[4] &&
-                        curCmd.pointee.segname.5 == SwiftSectionFunction.linkeditName[5] &&
-                        curCmd.pointee.segname.6 == SwiftSectionFunction.linkeditName[6] &&
-                        curCmd.pointee.segname.7 == SwiftSectionFunction.linkeditName[7] &&
-                        curCmd.pointee.segname.8 == SwiftSectionFunction.linkeditName[8] &&
-                        curCmd.pointee.segname.9 == SwiftSectionFunction.linkeditName[9] {
+                if  curCmd.pointee.segname.0 == FKSwiftSectionFunction.linkeditName[0] &&
+                        curCmd.pointee.segname.1 == FKSwiftSectionFunction.linkeditName[1] &&
+                        curCmd.pointee.segname.2 == FKSwiftSectionFunction.linkeditName[2] &&
+                        curCmd.pointee.segname.3 == FKSwiftSectionFunction.linkeditName[3] &&
+                        curCmd.pointee.segname.4 == FKSwiftSectionFunction.linkeditName[4] &&
+                        curCmd.pointee.segname.5 == FKSwiftSectionFunction.linkeditName[5] &&
+                        curCmd.pointee.segname.6 == FKSwiftSectionFunction.linkeditName[6] &&
+                        curCmd.pointee.segname.7 == FKSwiftSectionFunction.linkeditName[7] &&
+                        curCmd.pointee.segname.8 == FKSwiftSectionFunction.linkeditName[8] &&
+                        curCmd.pointee.segname.9 == FKSwiftSectionFunction.linkeditName[9] {
                     linkeditCmd = curCmd
                 }
             } else if curCmd.pointee.cmd == LC_DYLD_INFO_ONLY || curCmd.pointee.cmd == LC_DYLD_INFO {
@@ -179,7 +176,7 @@ public class SwiftSectionFunction {
             var terminalSize = UInt64(p.pointee)
             if terminalSize > 127 {
                 p -= 1
-                terminalSize = SwiftSectionFunction.readUleb128(p: &p, end: end)
+                terminalSize = FKSwiftSectionFunction.readUleb128(p: &p, end: end)
             }
             if terminalSize != 0 {
                 guard currentSymbol.hasPrefix(fullNamespace) else {
@@ -188,12 +185,12 @@ public class SwiftSectionFunction {
 
                 let returnSwiftSymbolAddress = { () -> UnsafeMutableRawPointer in
                     let machO = image.withMemoryRebound(to: Int8.self, capacity: 1, { $0 })
-                    let swiftSymbolAddress = machO.advanced(by: Int(SwiftSectionFunction.readUleb128(p: &p, end: end)))
+                    let swiftSymbolAddress = machO.advanced(by: Int(FKSwiftSectionFunction.readUleb128(p: &p, end: end)))
                     return UnsafeMutableRawPointer(mutating: swiftSymbolAddress)
                 }
                 
                 p += 1
-                let flags = SwiftSectionFunction.readUleb128(p: &p, end: end)
+                let flags = FKSwiftSectionFunction.readUleb128(p: &p, end: end)
                 switch flags & UInt64(EXPORT_SYMBOL_FLAGS_KIND_MASK) {
                 case UInt64(EXPORT_SYMBOL_FLAGS_KIND_REGULAR):
                     symbols[currentSymbol] = returnSwiftSymbolAddress()
@@ -203,7 +200,7 @@ public class SwiftSectionFunction {
                 case UInt64(EXPORT_SYMBOL_FLAGS_KIND_ABSOLUTE):
                     if (flags & UInt64(EXPORT_SYMBOL_FLAGS_STUB_AND_RESOLVER) != 0) {
                     }
-                    symbols[currentSymbol] = UnsafeMutableRawPointer(bitPattern: UInt(SwiftSectionFunction.readUleb128(p: &p, end: end)))
+                    symbols[currentSymbol] = UnsafeMutableRawPointer(bitPattern: UInt(FKSwiftSectionFunction.readUleb128(p: &p, end: end)))
                 default:
                     break
                 }
@@ -221,11 +218,11 @@ public class SwiftSectionFunction {
                 
                 // so advance to the child's node
                 p += 1
-                let nodeOffset = Int(SwiftSectionFunction.readUleb128(p: &p, end: end))
+                let nodeOffset = Int(FKSwiftSectionFunction.readUleb128(p: &p, end: end))
                 if nodeOffset != 0, let nodeLabel = nodeLabel {
                     let symbol = currentSymbol + nodeLabel
 //                    print(currentSymbol + " + " + nodeLabel)
-                    // find common parent node first then get all _SwiftSectionFunction: node.
+                    // find common parent node first then get all _FKSwiftSectionFunction: node.
                     if symbol.lengthOfBytes(using: .utf8) > 0 && (symbol.hasPrefix(fullNamespace) || fullNamespace.hasPrefix(symbol)) {
                         trieWalk(image: image, start: start, loc: start.advanced(by: nodeOffset), end: end, currentSymbol: symbol, symbols: &symbols)
                     }
@@ -237,6 +234,6 @@ public class SwiftSectionFunction {
 
 extension FKSectionFunction {
     @objc func executeSwiftFunctions(forKey: String) {
-        SwiftSectionFunction.start(key: forKey)
+        FKSwiftSectionFunction.start(key: forKey)
     }
 }

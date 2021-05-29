@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define FK_SERVICE_KEY "InjectContext"
+
 @interface FKServiceCenter : NSObject
 
 + (instancetype)sharedInstance;

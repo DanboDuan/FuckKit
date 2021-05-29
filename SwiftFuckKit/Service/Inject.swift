@@ -22,7 +22,7 @@ import FuckKit
 /// Convert Swift Protocol to OC Runtime `Protocol` type. These are different.
 /// - Parameter type: Swift Protocol type, like `UITableViewDelegate.self`
 /// - Returns: The OC Runtime `Protocol` type
-private func NSProtocolFromSwiftProtocol(_ type: NSObjectProtocol.Type) -> Protocol? {
+private func FKNSProtocolFromSwiftProtocol(_ type: Any.Type) -> Protocol? {
     var protocolString = String(reflecting: type)
     // For protocol comes from Objc, compiler will treat as Cxx symbol, like "__C.Protocol"
     if protocolString.hasPrefix("__C.") {
@@ -40,40 +40,74 @@ private func NSProtocolFromSwiftProtocol(_ type: NSObjectProtocol.Type) -> Proto
 @objc public protocol ServiceSharedScope : FKService {}
 
 @propertyWrapper
-public struct Inject<T> where T : NSObjectProtocol {
-    public init() {
-        let _ = InjectContext.setup
+public struct Inject<T> {
+    public var wrappedValue: T? {
+        return FKInjectContainer.resolve()
     }
     
-    public var wrappedValue: T? {
-        return InjectContext.get(T.self)
+    public init() {
+        let _ = FKInjectContainer.setup
     }
 }
 
-public struct InjectContext {
+public final class FKInjectContainer {
     
-    /// Setup once with Gaia
-    internal static let setup: Void = {
-        SwiftSectionFunction.start(key: "InjectContext")
-    }()
+    private var dependencies: [String: AnyObject] = [:]
     
-    public static func bind<T: NSObjectProtocol>(_ type: T.Type, to cls: AnyClass) {
-        guard let ocProtocol = NSProtocolFromSwiftProtocol(type) else {
-            return
-        }
-        FKServiceCenter.sharedInstance().bindClass(cls, for: ocProtocol)
+    private func register<T>(_ dependency: T) {
+        let key = String(describing: T.self)
+        dependencies[key] = dependency as AnyObject
     }
     
-    public static func get<T: NSObjectProtocol>(_ type: T.Type) -> T? {
-        guard let ocProtocol = NSProtocolFromSwiftProtocol(type) else {
-            return nil
+    private func register<T>(_ type: T.Type,_ dependency: T) {
+        let key = String(describing: T.self)
+        dependencies[key] = dependency as AnyObject
+    }
+
+    private func resolve<T>() -> T? {
+        let key = String(describing:T.self)
+        let dependency = dependencies[key] as? T
+
+        precondition(dependency != nil, "No service found for \(key)! must bind a service before resolve.")
+
+        return dependency
+    }
+    
+    /// Setup once
+    internal static let setup:Void = {
+        FKServiceCenter.sharedInstance()
+    }()
+    
+    private init() {}
+    
+    private static let sharedValue: FKInjectContainer = {
+       let context = FKInjectContainer()
+       return context
+    }()
+    
+    public static func register<T>(_ dependency: T) {
+        FKInjectContainer.sharedValue.register(dependency)
+    }
+    
+    public static func register<T>(_ type: T.Type,_ dependency: T) {
+        FKInjectContainer.sharedValue.register(type, dependency)
+    }
+    
+    public static func bind<T>(_ type: T.Type, to cls: AnyClass) {
+        if let ocProtocol = FKNSProtocolFromSwiftProtocol(type) {
+            FKServiceCenter.sharedInstance().bindClass(cls, for: ocProtocol)
+            return
         }
-        
-        if let service = FKServiceCenter.sharedInstance().service(for: ocProtocol)as? T {
+        assertionFailure("can not bind swift protocol or type use bind api, please use register api")
+    }
+    
+    public static func resolve<T>() -> T? {
+        if let ocProtocol = FKNSProtocolFromSwiftProtocol(T.self),
+           let service = FKServiceCenter.sharedInstance().service(for: ocProtocol)as? T {
             return service
         }
         
-        return nil
+        return FKInjectContainer.sharedValue.resolve()
     }
 }
 

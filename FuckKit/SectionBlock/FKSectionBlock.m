@@ -47,7 +47,7 @@ static void dyld_block_callback(const struct mach_header *mhp, intptr_t vmaddr_s
     if (dladdr(mhp, &info) == 0) {
         return;
     }
-    FKReadBlocks("__FKBlock",mhp);
+    FKReadBlocks("__FKBlock", mhp);
 }
 
 __attribute__((constructor)) void fkBlockProphet(void) {

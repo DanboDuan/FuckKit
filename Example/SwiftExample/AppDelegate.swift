@@ -15,12 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     @Inject<FKLogService> var logger
+    @Inject<Dog> var dog
+    @Inject<Heater> var heater
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        FKSectionFunction.sharedInstance().executeFunctions(forKey: "InjectContext")
         FKSwiftLog.debug("App", "AppLoadService")
         logger?.verbose("Test Log")
+        dog?.bark()
+        heater?.heat()
         return true
     }
 

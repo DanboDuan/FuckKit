@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@_implementationOnly import FuckKit
+import FuckKit
 
 public final class FKSwiftLog {
     public static func verbose(_ tag: String,

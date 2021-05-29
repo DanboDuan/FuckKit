@@ -79,6 +79,9 @@ Pod::Spec.new do |s|
   s.subspec 'Service' do |d|
     d.frameworks =  'Foundation'
     d.dependency 'FuckKit/Macros'
+    d.dependency 'FuckKit/SectionFunction'
+    d.dependency 'FuckKit/SectionBlock'
+    d.dependency 'FuckKit/SectionMethod'
     d.source_files = 'FuckKit/Service/**/*.{h,m,c}'
     d.public_header_files = 'FuckKit/Service/**/*.h'
   end
@@ -111,6 +114,13 @@ Pod::Spec.new do |s|
     d.dependency 'FuckKit/Macros'
     d.source_files = 'FuckKit/SectionFunction/**/*.{h,m,c}'
     d.public_header_files = 'FuckKit/SectionFunction/**/*.h'
+  end
+  
+  s.subspec 'SectionMethod' do |d|
+    d.frameworks =  'Foundation'
+    d.dependency 'FuckKit/Macros'
+    d.source_files = 'FuckKit/SectionMethod/**/*.{h,m,c}'
+    d.public_header_files = 'FuckKit/SectionMethod/**/*.h'
   end
   
   s.subspec 'Notification' do |d|

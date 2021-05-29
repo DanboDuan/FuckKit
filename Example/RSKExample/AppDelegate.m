@@ -12,6 +12,9 @@
 #import <FuckKit/FKSectionData.h>
 #import <FuckKit/FKSectionBlock.h>
 #import <FuckKit/FKSectionFunction.h>
+#import <FuckKit/FKSectionMethod.h>
+#import <FuckKit/FKService.h>
+#import <FuckKit/FKServiceCenter.h>
 
 #import <FuckKit/FKNotification.h>
 #import <FuckKit/NSFileManager+FK.h>
@@ -56,6 +59,10 @@ void wormholeNotificationCallback(CFNotificationCenterRef center,
 
 @implementation AppDelegate
 
++ (void)testMethod {
+    FK_METHOD_EXPORT("a")
+    printf("\na Method:test Method 1");
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -63,6 +70,9 @@ void wormholeNotificationCallback(CFNotificationCenterRef center,
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
+    
+    id<FKLogService> logger = [[FKServiceCenter sharedInstance] serviceForProtocol:@protocol(FKLogService)];
+    [logger debug:@"test log"];
     
     [NSFileManager fk_homePath];
     [NSFileManager fk_documentPath];
@@ -73,6 +83,7 @@ void wormholeNotificationCallback(CFNotificationCenterRef center,
     dispatch_async(dispatch_get_main_queue(), ^{
         [[FKSectionBlock sharedInstance] executeBlocksForKey:@"a"];
         [[FKSectionFunction sharedInstance] executeFunctionsForKey:@"a"];
+        [[FKSectionMethod sharedInstance] executeMethodsForKey:@"a"];
     });
     NSLog(@"%@, %@ %s",key1, key2,__func__);
     CFNotificationCenterRef const center = CFNotificationCenterGetDarwinNotifyCenter();

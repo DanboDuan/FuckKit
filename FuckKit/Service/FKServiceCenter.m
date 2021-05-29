@@ -8,6 +8,9 @@
 #import "FKServiceCenter.h"
 #import "FKService.h"
 #import "FKMacros.h"
+#import "FKSectionBlock.h"
+#import "FKSectionFunction.h"
+#import "FKSectionMethod.h"
 
 @interface FKServiceCenter ()
 
@@ -17,6 +20,12 @@
 @end
 
 @implementation FKServiceCenter
+
++ (void)initialize {
+    [[FKSectionMethod sharedInstance] executeMethodsForKey:@FK_SERVICE_KEY];
+    [[FKSectionFunction sharedInstance] executeFunctionsForKey:@FK_SERVICE_KEY];
+    [[FKSectionBlock sharedInstance] executeBlocksForKey:@FK_SERVICE_KEY];
+}
 
 + (instancetype)sharedInstance {
     static FKServiceCenter *sharedInstance = nil;
@@ -146,10 +155,14 @@
 @autoreleasepool {do{[FK_CENTER_OBJECT(FKLogService) error:NSSTRING_LOG(tag, format, ##__VA_ARGS__)];\
 }while(0);};
 
+#define FK_SERVICE_METHOD FK_METHOD_EXPORT(FK_SERVICE_KEY);
+
+
 /// @BindService(LoginService)
 /// @BindService(AccountService)
 #define FKBindService(protocolName) class NSObject; \
 + (id<protocolName>)__bind_service_##protocolName { \
+    FK_SERVICE_METHOD \
     [[FKServiceCenter sharedInstance] bindClass:self forProtocol:@protocol(protocolName)]; \
     return nil; \
 }
