@@ -32,7 +32,7 @@
 static FKCellularConnectionType ParseRadioAccessTechnology(NSString * tech) {
     if (tech.length < 1) return FKCellularConnectionTypeNone;
     
-    if (@available(iOS 14.0, *)) {
+    if (@available(iOS 14.1, *)) {
         if ([tech isEqualToString:CTRadioAccessTechnologyNR]
             ||[tech isEqualToString:CTRadioAccessTechnologyNRNSA]) {
             return FKCellularConnectionType5G;
@@ -261,6 +261,11 @@ static FKCellularConnectionType ParseRadioAccessTechnology(NSString * tech) {
     if (keys.count < 1) {
         return;
     }
+    
+    /// 使用sort可能会有坑，目前不怕，以后再改
+    keys = [keys sortedArrayUsingComparator:^NSComparisonResult(NSString * obj1, NSString *obj2) {
+        return [obj1 compare:obj2];
+    }];
     
     NSString * primaryIdentifier = [keys firstObject];
     self.primaryIdentifier = primaryIdentifier;
