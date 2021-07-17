@@ -28,4 +28,5 @@ Podfile.lock
 !Podfile
 Gemfile.lock
 !Gemfile
+sdk_size_info.json
 
